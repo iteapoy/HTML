@@ -1302,23 +1302,28 @@ table.dbkit-table tr td {
 }
 
 .sbg1 {
-    background: -webkit-linear-gradient(291deg, rgb(77, 77, 253) 0%, rgb(108, 143, 234) 100%);
-    background: linear-gradient(159deg, rgb(77, 77, 253) 0%, rgb(108, 143, 234) 100%);
+    background: rgb(77, 77, 253);
+    background: rgb(77, 77, 253)；
 }
 
 .sbg2 {
-    background: -webkit-linear-gradient(291deg, rgb(5, 176, 133) 0%, rgb(27, 212, 166) 59%);
-    background: linear-gradient(159deg, rgb(5, 176, 133) 0%, rgb(27, 212, 166) 59%);
+    background: rgb(5, 176, 133);
+    background:  rgb(5, 176, 133);
 }
 
 .sbg3 {
-    background: -webkit-linear-gradient(298deg, rgb(216, 88, 79) 0%, rgb(243, 140, 140) 100%);
-    background: linear-gradient(152deg, rgb(216, 88, 79) 0%, rgb(243, 140, 140) 100%);
+    background: rgb(216, 88, 79);
+    background:rgb(216, 88, 79)；
 }
 
 .sbg4 {
-    background: -webkit-linear-gradient(59deg, rgb(254, 208, 63) 0%, rgb(230, 190, 63) 110%);
-    background: linear-gradient(31deg, rgb(254, 208, 63) 0%, rgb(230, 190, 63) 110%);
+    background: rgb(254, 208, 63);
+    background: rgb(254, 208, 63);
+}
+
+.sbg5 {
+    background: #EE8434;
+    background: #EE8434;
 }
 
 .seofct-icon {
