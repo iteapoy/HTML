@@ -194,7 +194,7 @@ if ($('#seolinechart4').length) {
             labels: ["January", "February", "March", "April", "May", "June", "July", "January", "February", "March", "April", "May"],
             datasets: [{
                 label: "New user",
-                backgroundColor: "rgba(246, 221, 141, 0)",
+                backgroundColor: "rgba(246, 221, 141, 0.2)",
                 borderColor: '#f6dd8d',
                 data: [18, 41, 86, 49, 20, 35, 20, 50, 49, 30, 45, 25],
             }]
@@ -255,8 +255,8 @@ if ($('#seolinechart5').length) {
             labels: ["January", "February", "March", "April", "May", "June", "July", "January", "February", "March", "April", "May"],
             datasets: [{
                 label: "New user",
-                backgroundColor: "rgba(246, 221, 141, 0)",
-                borderColor: '#f6dd8d',
+                backgroundColor: "rgba(248, 159, 92, 0.2)",
+                borderColor: '#f89f5c',
                 data: [18, 41, 86, 49, 20, 35, 20, 50, 49, 30, 45, 25],
             }]
         },
@@ -305,8 +305,57 @@ if ($('#seolinechart5').length) {
 }
 /*-------------- 10 line chart chartjs end ------------*/
 
+
 /*-------------- 11 line chart amchart start ------------*/
 if ($('#salesanalytic').length) {
+    var chartData = [{
+        "time":0,
+        "temp":23.3,
+        "humi":60.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    } ,
+    {
+        "time":1,
+        "temp":23.3,
+        "humi":60.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    } ,
+    {
+        "time":2,
+        "temp":23.3,
+        "humi":71.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    } ,
+    {
+        "time":0,
+        "temp":23.3,
+        "humi":60.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    } ,
+    {
+        "time":1,
+        "temp":23.3,
+        "humi":60.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    } ,
+    {
+        "time":2,
+        "temp":23.3,
+        "humi":60.2,
+        "HCHO":5,
+        "CO2":400,
+        "PM25":10
+    }];
 
     var chart = AmCharts.makeChart("salesanalytic", {
         "type": "serial",
@@ -324,12 +373,6 @@ if ($('#salesanalytic').length) {
         }, {
             "id": "v2",
             "title": "湿度",
-            "gridAlpha": 0,
-            "position": "right",
-            "autoGridCount": false
-        }, {
-            "id": "v3",
-            "title": "PM2.5",
             "gridAlpha": 0,
             "position": "right",
             "autoGridCount": false
@@ -373,7 +416,6 @@ if ($('#salesanalytic').length) {
             "lineThickness": 2,
             "lineColor": "#3de5bb",
             "type": "smoothedLine",
-            "dashLength": 5,
             "title": "PM2.5",
             "useLineColorForBulletBorder": true,
             "valueField": "PM25",
@@ -389,6 +431,7 @@ if ($('#salesanalytic').length) {
             "lineThickness": 2,
             "lineColor": "#ffe598",
             "type": "smoothedLine",
+            "dashLength": 5,
             "title": "二氧化碳",
             "useLineColorForBulletBorder": true,
             "valueField": "CO2",
@@ -449,55 +492,32 @@ if ($('#salesanalytic').length) {
         "export": {
             "enabled": false
         },
-        "dataProvider": [{
-            "time":0,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        } ,
-        {
-            "time":1,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        } ,
-        {
-            "time":2,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        } ,
-        {
-            "time":0,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        } ,
-        {
-            "time":1,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        } ,
-        {
-            "time":2,
-            "temp":23.3,
-            "humi":60.2,
-            "HCHO":5,
-            "CO2":400,
-            "PM25":10
-        }]
+        "dataProvider": chartData
     });
+    
+    function refresh(){
+        $.getJSON("data.json", function (data) {
+            data=data['data'];
+            var last = data[data.length-1];
+            // console.log(last);
+            $('#val_temp').html(last['temp']+"°C");
+            $('#val_humi').html(last['humi']);
+            $('#val_HCHO').html(last['HCHO']);
+            $('#val_CO2').html(last['CO2']);
+            $('#val_PM25').html(last['PM25']);
+            // console.log(data);
+            chart.dataProvider = data;
+            chart.validateNow();
+            chart.validateData();
+        })
+    }
+
+    window.setInterval("refresh()",60000);
+
+    $('#refresh').click(function () {
+        // console.log("click");
+        refresh();
+    })
 }
 
 /*-------------- 11 line chart amchart end ------------*/
