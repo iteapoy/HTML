@@ -404,53 +404,7 @@ if ($('#salesanalytic').length) {
             "title": "湿度",
             "useLineColorForBulletBorder": true,
             "valueField": "humi",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]</small>"
-        }, {
-            "id": "g2",
-            "valueAxis": "v2",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#3de5bb",
-            "type": "smoothedLine",
-            "title": "PM2.5",
-            "useLineColorForBulletBorder": true,
-            "valueField": "PM25",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]</small>"
-        }, {
-            "id": "g3",
-            "valueAxis": "v2",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#ffe598",
-            "type": "smoothedLine",
-            "dashLength": 5,
-            "title": "二氧化碳",
-            "useLineColorForBulletBorder": true,
-            "valueField": "CO2",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]</small>"
-        }, {
-            "id": "g5",
-            "valueAxis": "v2",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#EE8434",
-            "type": "smoothedLine",
-            "title": "甲醛",
-            "useLineColorForBulletBorder": true,
-            "valueField": "HCHO",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]</small>"
+            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]%</small>"
         }],
         "chartScrollbar": {
             "graph": "g1",
@@ -494,23 +448,25 @@ if ($('#salesanalytic').length) {
         },
         "dataProvider": chartData
     });
-    
+
     function refresh(){
         $.getJSON("data.json", function (data) {
             data=data['data'];
             var last = data[data.length-1];
             // console.log(last);
             $('#val_temp').html(last['temp']+"°C");
-            $('#val_humi').html(last['humi']);
-            $('#val_HCHO').html(last['HCHO']);
-            $('#val_CO2').html(last['CO2']);
-            $('#val_PM25').html(last['PM25']);
+            $('#val_humi').html(last['humi']+"%");
+            $('#val_HCHO').html(last['HCHO']+"ug/m3");
+            $('#val_CO2').html(last['CO2']+"ppm");
+            $('#val_PM25').html(last['PM25']+"ug/m3");
             // console.log(data);
             chart.dataProvider = data;
             chart.validateNow();
             chart.validateData();
         })
     }
+
+    refresh();
 
     window.setInterval("refresh()",60000);
 
