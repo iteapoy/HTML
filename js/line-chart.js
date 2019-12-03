@@ -307,7 +307,7 @@ if ($('#seolinechart5').length) {
 
 
 /*-------------- 11 line chart amchart start ------------*/
-if ($('#salesanalytic1').length) {
+if ($('#salesanalytic').length) {
     var chartData = [{
         "time":0,
         "temp":23.3,
@@ -357,7 +357,7 @@ if ($('#salesanalytic1').length) {
         "PM25":10
     }];
 
-    var chart = AmCharts.makeChart("salesanalytic1", {
+    var chart = AmCharts.makeChart("salesanalytic", {
         "type": "serial",
         "theme": "light",
         "dataDateFormat": "YYYY-MM-DD",
@@ -375,10 +375,7 @@ if ($('#salesanalytic1').length) {
             "title": "湿度",
             "gridAlpha": 0,
             "position": "right",
-            "autoGridCount": false,
-            "labelFunction": function(value) {
-                return  Math.round(value) + "%";
-            }
+            "autoGridCount": false
         }],
         "graphs": [{
             "id": "g4",
@@ -407,24 +404,23 @@ if ($('#salesanalytic1').length) {
             "title": "湿度",
             "useLineColorForBulletBorder": true,
             "valueField": "humi",
-            "legendValueText": "[[value]]%",
             "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]%</small>"
         }],
-        // "chartScrollbar": {
-        //     "graph": "g1",
-        //     "oppositeAxis": false,
-        //     "offset": 50,
-        //     "scrollbarHeight": 45,
-        //     "backgroundAlpha": 0,
-        //     "selectedBackgroundAlpha": 0.5,
-        //     "selectedBackgroundColor": "#f9f9f9",
-        //     "graphFillAlpha": 0.1,
-        //     "graphLineAlpha": 0.4,
-        //     "selectedGraphFillAlpha": 0,
-        //     "selectedGraphLineAlpha": 1,
-        //     "autoGridCount": true,
-        //     "color": "#95a1f9"
-        // },
+        "chartScrollbar": {
+            "graph": "g1",
+            "oppositeAxis": false,
+            "offset": 50,
+            "scrollbarHeight": 45,
+            "backgroundAlpha": 0,
+            "selectedBackgroundAlpha": 0.5,
+            "selectedBackgroundColor": "#f9f9f9",
+            "graphFillAlpha": 0.1,
+            "graphLineAlpha": 0.4,
+            "selectedGraphFillAlpha": 0,
+            "selectedGraphLineAlpha": 1,
+            "autoGridCount": true,
+            "color": "#95a1f9"
+        },
         "chartCursor": {
             "pan": true,
             "valueLineEnabled": true,
@@ -453,141 +449,29 @@ if ($('#salesanalytic1').length) {
         "dataProvider": chartData
     });
 
-    var chart2 = AmCharts.makeChart("salesanalytic2", {
-        "type": "serial",
-        "theme": "light",
-        "dataDateFormat": "YYYY-MM-DD",
-        "precision": 1,
-        "valueAxes": [{
-            "id": "v3",
-            "title": "浓度",
-            "position": "left",
-            "autoGridCount": false,
-            "labelFunction": function(value) {
-                return  Math.round(value) + "ug/m3";
-            }
-        }, {
-            "id": "v4",
-            "title": "百万分比浓度",
-            "gridAlpha": 0,
-            "position": "right",
-            "autoGridCount": false
-        }],
-        "graphs": [{
-            "id": "g2",
-            "valueAxis": "v3",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#3de5bb",
-            "type": "smoothedLine",
-            "title": "PM2.5",
-            "useLineColorForBulletBorder": true,
-            "valueField": "PM25",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]ug/m3</small>"
-        }, {
-            "id": "g3",
-            "valueAxis": "v4",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#ffe598",
-            "type": "smoothedLine",
-            "dashLength": 5,
-            "title": "二氧化碳",
-            "useLineColorForBulletBorder": true,
-            "valueField": "CO2",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]ppm</small>"
-        }, {
-            "id": "g5",
-            "valueAxis": "v3",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "lineColor": "#EE8434",
-            "type": "smoothedLine",
-            "title": "甲醛",
-            "useLineColorForBulletBorder": true,
-            "valueField": "HCHO",
-            "balloonText": "[[title]]<br /><small style='font-size: 130%'>[[value]]ug/m3</small>"
-        }],
-        // "chartScrollbar": {
-        //     "graph": "g1",
-        //     "oppositeAxis": false,
-        //     "offset": 50,
-        //     "scrollbarHeight": 45,
-        //     "backgroundAlpha": 0,
-        //     "selectedBackgroundAlpha": 0.5,
-        //     "selectedBackgroundColor": "#f9f9f9",
-        //     "graphFillAlpha": 0.1,
-        //     "graphLineAlpha": 0.4,
-        //     "selectedGraphFillAlpha": 0,
-        //     "selectedGraphLineAlpha": 1,
-        //     "autoGridCount": true,
-        //     "color": "#95a1f9"
-        // },
-        "chartCursor": {
-            "pan": true,
-            "valueLineEnabled": true,
-            "valueLineBalloonEnabled": true,
-            "cursorAlpha": 0,
-            "valueLineAlpha": 0.2
-        },
-        "categoryField": "time",
-        "categoryAxis": {
-            "parseDates": false,
-            "dashLength": 1,
-            "minorGridEnabled": true,
-            "color": "#5C6DF4"
-        },
-        "legend": {
-            "useGraphSettings": true,
-            "position": "top"
-        },
-        "balloon": {
-            "borderThickness": 1,
-            "shadowAlpha": 0
-        },
-        "export": {
-            "enabled": false
-        },
-        "dataProvider": chartData
-    });
-    
     function refresh(){
         $.getJSON("data.json", function (data) {
             data=data['data'];
             var last = data[data.length-1];
             // console.log(last);
-            $('#val_temp').html(last['temp']+" °C");
-            $('#val_humi').html(last['humi']+" %");
-            $('#val_HCHO').html(last['HCHO']+" ug/m3");
-            $('#val_CO2').html(last['CO2']+" ppm");
-            $('#val_PM25').html(last['PM25']+" ug/m3");
+            $('#val_temp').html(last['temp']+"°C");
+            $('#val_humi').html(last['humi']+"%");
+            $('#val_HCHO').html(last['HCHO']+"ug/m3");
+            $('#val_CO2').html(last['CO2']+"ppm");
+            $('#val_PM25').html(last['PM25']+"ug/m3");
             // console.log(data);
             chart.dataProvider = data;
             chart.validateNow();
             chart.validateData();
-            chart2.dataProvider = data;
-            chart2.validateNow();
-            chart2.validateData();
         })
     }
 
-	refresh();
-	
+    refresh();
+
     window.setInterval("refresh()",60000);
 
     $('#refresh').click(function () {
+        // console.log("click");
         refresh();
     })
 }
