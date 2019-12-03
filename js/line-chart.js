@@ -455,7 +455,10 @@ if ($('#salesanalytic1').length) {
             "title": "百万分比浓度",
             "gridAlpha": 0,
             "position": "right",
-            "autoGridCount": false
+            "autoGridCount": false,
+            "labelFunction": function(value) {
+                return  Math.round(value) + "ppm";
+            }
         }],
         "graphs": [{
             "id": "g2",
