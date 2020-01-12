@@ -145,41 +145,12 @@
     <script src="js/scripts.js"></script>
 			
 	<script type="text/javascript">
-        function setPinValue(value) {
-            alert("按键点击！");
-            var xmlhttp;
-            if (value.length==0)
-            {
-            document.getElementById("txtState").innerHTML="请点击正确按键！";
-            return;
-            }
-             
-            if (window.XMLHttpRequest)
-            {
-            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp=new XMLHttpRequest();
-            }
-            else
-            {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-             
-            xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            //alert(xmlhttp.responseText);
-            //alert("操作成功");
-            document.getElementById("txtState").innerHTML = xmlhttp.responseText;
-             }
-            }
-             
-            var requestString = "/pin?a=" + value + "&pin=2";
-            xmlhttp.open("GET", requestString, true);
-            xmlhttp.send(null);
-        }
-         
         function setWifi(name,pwd) {
             alert("按键点击！");
+            
+            console.log(name);
+            console.log(pwd);
+
             var xmlhttp;
             if (name.length==0)
             {
@@ -200,55 +171,16 @@
              
             xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            //alert(xmlhttp.responseText);
+            // alert(xmlhttp.responseText);
             //alert("操作成功");
             document.getElementById("wifiState").innerHTML = xmlhttp.responseText;
              }
             }
              
             var requestString = "/wifi?config=on" + "&name="+name+"&pwd="+pwd;
-            xmlhttp.open("GET", requestString, true);
-            xmlhttp.send(null);
-        }
-         
-         
-        function setWifi_wangye(wifi_wname,wifi_wip,wifi_postdata) {
-            alert("按键点击！");
-            var xmlhttp;
-            if (wifi_wname.length==0||wifi_wip.length==0||wifi_postdata.length==0)
-            {
-            document.getElementById("wifiState").innerHTML="请输入网页认证信息！";
-            return;
-            }
-             
-            //for(var i=0;i<wifi_postdata.length;i++)
-            //{
-               //if(wifi_postdata[i]=="&")wifi_postdata[i]="-";
-             
-            //}
-             
-            if (window.XMLHttpRequest)
-            {
-            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp=new XMLHttpRequest();
-            }
-            else
-            {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-             
-            xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            //alert(xmlhttp.responseText);
-            //alert("操作成功");
-            document.getElementById("wifiState").innerHTML = xmlhttp.responseText;
-             }
-            }
-          
-            var requestString = "/wifi_wangye?config=on" + "&wifi_wname="+wifi_wname+"&wifi_wpwd"+""+"&wifi_wip="+wifi_wip+"&wifi_postdata="+wifi_postdata;
-            xmlhttp.open("GET", requestString, true);
-            xmlhttp.send(null);
+            xmlhttp.open("POST", requestString, true);
+            xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+            httpRequest.send("name="+name+"&pwd="+pwd);
         }
     </script>
 </body>

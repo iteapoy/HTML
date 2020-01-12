@@ -538,6 +538,7 @@ if ($('#salesanalytic1').length) {
     function refresh(){
         $.getJSON("data.json", function (data) {
             data=data['data'];
+            data.reverse();
             var last = data[data.length-1];
             // console.log(last);
             $('#val_temp').html(last['temp']+"°C");
@@ -546,7 +547,6 @@ if ($('#salesanalytic1').length) {
             $('#val_CO2').html(last['CO2']+"ppm");
             $('#val_PM25').html(last['PM25']+"ug/m3");
             // console.log(data);
-			data.reverse();
             chart.dataProvider = data;
             chart.validateNow();
             chart.validateData();
