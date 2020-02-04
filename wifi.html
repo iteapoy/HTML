@@ -77,7 +77,8 @@
                             <div class="col-lg-6 mt-5">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="header-title">选择WIFI连接方式 &nbsp; <button type="button" class="btn btn-xs btn-light" id="refresh2"><i class="fa fa-refresh"></i></button></h4>
+                                        <h4 class="header-title">选择WIFI连接方式 <!--&nbsp; <button type="button" class="btn btn-xs btn-light" id="refresh2"><i class="fa fa-refresh"></i></button>--></h4>                
+                                        <div id='myAlert'></div>
                                         <p class="text-muted mb-3">WIFI连接状态: <span id="wifiState"></span></p>
                                         <div id="accordion5" class="according accordion-s2 gradiant-bg">
                                             <div class="card">
@@ -98,7 +99,7 @@
                                                                 <i class="ti-lock"></i>
                                                             </div>
                                                             <div class="submit-btn-area">
-                                                                <button id="form_submit" type="submit" class="fb-login" onclick='setWifi(wifiname.value,wifipwd.value)' >连接 <i class="ti-arrow-right"></i></button>
+                                                                <button id="form_submit" type="button" class="fb-login" onclick='setWifi(wifiname.value,wifipwd.value)' >连接 <i class="ti-arrow-right"></i></button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -144,17 +145,27 @@
     <script src="js/plugins.js"></script>
     <script src="js/scripts.js"></script>
 			
-	<script type="text/javascript">
-        function setWifi(name,pwd) {
-            alert("按键点击！");
-            
-            console.log(name);
-            console.log(pwd);
+    <script type="text/javascript">
+        var n=5; 
+        var myVar;
+        function setAlert(){
+            var textStr="<div class=\"alert alert-success\" role\"alert\">\
+                                <strong>信息已提交，连接中……</strong>";
+            textStr+=n.toString();
+            textStr+="秒后自动刷新界面。 </div>";         
+            document.getElementById("myAlert2").innerHTML = textStr;
+            n-=1;
+            if(n<=0) {clearInterval(myVar);location.reload();}
+        }
 
+        function setWifi(name,pwd) {
             var xmlhttp;
             if (name.length==0)
             {
-            document.getElementById("wifiState").innerHTML="请输入WIFI信息！";
+            // document.getElementById("wifiState").innerHTML="请输入WIFI信息！";
+            document.getElementById("myAlert").innerHTML =  " <div class=\"alert alert-warning\" role=\"alert\">\
+                                            <strong></strong>请输入WIFI信息！\
+                                        </div>"
             return;
             }
              
@@ -172,15 +183,29 @@
             xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState==4 && xmlhttp.status==200){
             // alert(xmlhttp.responseText);
-            //alert("操作成功");
             document.getElementById("wifiState").innerHTML = xmlhttp.responseText;
              }
             }
-             
+
             var requestString = "/wifi?config=on" + "&name="+name+"&pwd="+pwd;
             xmlhttp.open("POST", requestString, true);
             xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
-            httpRequest.send("name="+name+"&pwd="+pwd);
+            xmlhttp.send("name="+name+"&pwd="+pwd);
+
+            // 加入透明背景
+            var body = document.body;
+            var backgroundDiv = document.createElement("div");
+            backgroundDiv.style.cssText = "left:0;top:0;position:fixed;background:white;opacity:0.95;width:100%;height:100%";
+            body.appendChild(backgroundDiv);
+            // 加入居中弹出框
+            var newDiv = document.createElement("div");
+            newDiv.style.cssText = "position:absolute;margin:auto;left:0;right:0;top:0;bottom:0;width:400px;height:200px;background:white;";
+            backgroundDiv.appendChild(newDiv);
+            // 丰富弹出框内容
+            var newAlert = document.createElement("div");
+            newAlert.id="myAlert2";
+            newDiv.appendChild(newAlert);
+            myVar=setInterval(setAlert,1000);
         }
     </script>
 </body>
