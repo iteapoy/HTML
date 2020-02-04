@@ -190,8 +190,7 @@
              }
             }
 
-            var requestString = "/wifi?config=on" + "&name="+name+"&pwd="+pwd;
-            xmlhttp.open("POST", requestString, true);
+            xmlhttp.open("POST", "wifi", true);
             xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
             xmlhttp.send("name="+name+"&pwd="+pwd);
 
@@ -215,6 +214,36 @@
             newDiv.appendChild(newAlert);
             myVar=setInterval(setAlert,1000);
         }
+
+        // 获取当前wifi的连接状态
+        function getWifi(){
+            console.log("getWifi");
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+             
+            xmlhttp.open("POST", "status", true);
+            xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+            xmlhttp.send("");
+
+            xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                 var json=xmlhttp.responseText;
+                 console.log(json);
+                 alert(json);
+            // document.getElementById("wifiState").innerHTML = xmlhttp.responseText;
+             }
+            }
+        }
+        getWifi();
     </script>
 </body>
 
