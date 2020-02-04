@@ -148,6 +148,7 @@
     <script type="text/javascript">
         var n=5; 
         var myVar;
+        //该函数每秒执行一次，共倒数n秒，倒数完成后刷新页面
         function setAlert(){
             var textStr="<div class=\"alert alert-success\" role\"alert\">\
                                 <strong>信息已提交，连接中……</strong>";
@@ -155,18 +156,20 @@
             textStr+="秒后自动刷新界面。 </div>";         
             document.getElementById("myAlert2").innerHTML = textStr;
             n-=1;
-            if(n<=0) {clearInterval(myVar);location.reload();}
+            if(n<=0) {
+                clearInterval(myVar);
+                location.reload();
+            }
         }
 
         function setWifi(name,pwd) {
             var xmlhttp;
             if (name.length==0)
             {
-            // document.getElementById("wifiState").innerHTML="请输入WIFI信息！";
-            document.getElementById("myAlert").innerHTML =  " <div class=\"alert alert-warning\" role=\"alert\">\
-                                            <strong></strong>请输入WIFI信息！\
-                                        </div>"
-            return;
+                document.getElementById("myAlert").innerHTML =  
+                " <div class=\"alert alert-warning\" role=\"alert\">\
+                     <strong></strong>请输入WIFI信息! </div>"
+                return;
             }
              
             if (window.XMLHttpRequest)
@@ -192,6 +195,11 @@
             xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
             xmlhttp.send("name="+name+"&pwd="+pwd);
 
+            newPage();
+        }
+
+        // 自制弹出的alert窗口
+        function newPage(){
             // 加入透明背景
             var body = document.body;
             var backgroundDiv = document.createElement("div");
